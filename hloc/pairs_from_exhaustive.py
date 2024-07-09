@@ -15,6 +15,7 @@ def main(
     ref_list: Optional[Union[Path, List[str]]] = None,
     ref_features: Optional[Path] = None,
 ):
+    # reach out query images
     if image_list is not None:
         if isinstance(image_list, (str, Path)):
             names_q = parse_image_lists(image_list)
@@ -26,7 +27,8 @@ def main(
         names_q = list_h5_names(features)
     else:
         raise ValueError("Provide either a list of images or a feature file.")
-
+    
+    # reach out reference images
     self_matching = False
     if ref_list is not None:
         if isinstance(ref_list, (str, Path)):
@@ -48,7 +50,7 @@ def main(
                 continue
             pairs.append((n1, n2))
 
-    logger.info(f"Found {len(pairs)} pairs.")
+    logger.info(f"Found {len(pairs)} pairs.") # n*(n+1)/2
     with open(output, "w") as f:
         f.write("\n".join(" ".join([i, j]) for i, j in pairs))
 

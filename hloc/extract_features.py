@@ -232,14 +232,14 @@ def main(
         "Extracting local features with configuration:" f"\n{pprint.pformat(conf)}"
     )
 
-    dataset = ImageDataset(image_dir, conf["preprocessing"], image_list)
+    dataset = ImageDataset(image_dir, conf["preprocessing"], image_list) # dataset reader class
     if feature_path is None:
-        feature_path = Path(export_dir, conf["output"] + ".h5")
+        feature_path = Path(export_dir, conf["output"] + ".h5") # output file -> features.ha
     feature_path.parent.mkdir(exist_ok=True, parents=True)
     skip_names = set(
         list_h5_names(feature_path) if feature_path.exists() and not overwrite else ()
-    )
-    dataset.names = [n for n in dataset.names if n not in skip_names]
+    ) # rule out repeated images
+    dataset.names = [n for n in dataset.names if n not in skip_names] # ?
     if len(dataset.names) == 0:
         logger.info("Skipping the extraction.")
         return feature_path
