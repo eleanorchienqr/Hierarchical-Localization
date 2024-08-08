@@ -1,5 +1,6 @@
 from pathlib import Path
 from setuptools import setup, find_packages
+from pybind11.setup_helpers import Pybind11Extension
 
 description = ['Tools and baselines for visual localization and mapping']
 
@@ -27,4 +28,5 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
+    # ext_modules=[Pybind11Extension(extra_compile_args=["-g"])],
 )
